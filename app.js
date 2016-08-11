@@ -4,8 +4,6 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var debug = require('debug')('pgo-webhook:server');
 
-
-
 var pokemon = require('./routes/pokemon');
 
 var app = express();

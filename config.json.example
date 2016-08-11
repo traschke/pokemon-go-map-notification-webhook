@@ -1,4 +1,5 @@
 {
+  "locale": "de",
   "pushbullet": {
     "apikey": "",
     "devices": [
