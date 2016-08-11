@@ -1,5 +1,6 @@
 {
   "locale": "de",
+  "rarity_filter": ["common", "uncommon", "rare", "very rare", "ultra rare"],
   "pushbullet": {
     "apikey": "",
     "devices": [

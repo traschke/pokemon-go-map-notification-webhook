@@ -23,7 +23,7 @@ pokemon.route('/')
     });
 
 var callback = function(pkmn) {
-    if (pkmn.rarity != 'Common') {
+    if (config.rarity_filter == undefined || config.rarity_filter.indexOf(pkmn.rarity.toLowerCase()) > -1) {
         var localizedPkmn = localizer.getLocalizedPokmemon(pkmn);
         var msg = localizer.getLocalizedString('pokemon_message');
         msg = util.format(msg, localizedPkmn.name, localizedPkmn.rarity, localizedPkmn.time_until_hidden_formatted,
@@ -34,6 +34,8 @@ var callback = function(pkmn) {
                 console.log(err);
             }
         });
+    } else {
+        console.log('Skipping ' + pkmn.rarity + ' Pokemon');
     }
 };
 
