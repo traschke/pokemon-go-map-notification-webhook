@@ -1,4 +1,5 @@
 {
+  "port": 3000,
   "locale": "de",
   "rarity_filter": ["common", "uncommon", "rare", "very rare", "ultra rare"],
   "pokemon_filter": [16, 21],
