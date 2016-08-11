@@ -24,16 +24,20 @@ pokemon.route('/')
 
 var callback = function(pkmn) {
     if (config.rarity_filter == undefined || config.rarity_filter.indexOf(pkmn.rarity.toLowerCase()) > -1) {
-        var localizedPkmn = localizer.getLocalizedPokmemon(pkmn);
-        var msg = localizer.getLocalizedString('pokemon_message');
-        msg = util.format(msg, localizedPkmn.name, localizedPkmn.rarity, localizedPkmn.time_until_hidden_formatted,
-            localizedPkmn.disappear_time_formatted, localizedPkmn.direction_href);
-        console.log(msg);
-        pusher.note(config.pushbullet.devices, 'Pokémon GO', msg, function(err, res) {
-            if (err) {
-                console.log(err);
-            }
-        });
+        if (config.pokemon_filter == undefined || config.pokemon_filter.indexOf(pkmn.pokemon_id) > -1) {
+            var localizedPkmn = localizer.getLocalizedPokmemon(pkmn);
+            var msg = localizer.getLocalizedString('pokemon_message');
+            msg = util.format(msg, localizedPkmn.name, localizedPkmn.rarity, localizedPkmn.time_until_hidden_formatted,
+                localizedPkmn.disappear_time_formatted, localizedPkmn.direction_href);
+            console.log(msg);
+            pusher.note(config.pushbullet.devices, 'Pokémon GO', msg, function(err, res) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            console.log('Skipping ' + pkmn.name);
+        }
     } else {
         console.log('Skipping ' + pkmn.rarity + ' Pokemon');
     }
