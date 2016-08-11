@@ -20,6 +20,19 @@ var msToTime = function(duration) {
     return minutes + ":" + seconds;
 };
 
+var formatDate = function(date) {
+    return addLeadingZero(date.getHours()) + ':' +
+        addLeadingZero(date.getMinutes()) + ':' +
+        addLeadingZero(date.getSeconds())
+};
+
+var addLeadingZero = function(val) {
+    if (val >= 0 && val < 10) {
+        return "0" + val;
+    }
+    return val;
+};
+
 var pkmnStore = {
     add: function(pkmnMsg, callback) {
         if (typeof appearedPkmn[pkmnMsg.encounter_id] === 'undefined') {
@@ -28,7 +41,7 @@ var pkmnStore = {
 
             pkmn.name = pokemonConfig[pkmn.pokemon_id].name;
             pkmn.time_until_hidden_formatted = msToTime(pkmn.time_until_hidden_ms);
-            pkmn.disappear_time_formatted = disappear_time.getHours() + ':' + disappear_time.getMinutes() + ':' + disappear_time.getSeconds();
+            pkmn.disappear_time_formatted = formatDate(disappear_time);
             pkmn.direction_href = 'https://www.google.com/maps/dir/Current+Location/' + pkmn.latitude + ',' + pkmn.longitude;
             pkmn.rarity = pokemonConfig[pkmn.pokemon_id].rarity;
 

@@ -3,8 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var debug = require('debug')('pgo-webhook:server');
-
-
+var config = require('./config.json');
 
 var pokemon = require('./routes/pokemon');
 
@@ -16,11 +15,11 @@ app.use(bodyParser.json());
 app.use('/pokemon', pokemon);
 
 // Start server ****************************
-app.listen(3000, function(err) {
+app.listen(config.port, function(err) {
   if (err !== undefined) {
     console.log('Error on startup, ',err);
   }
   else {
-    console.log('Listening on port 3000');
+    console.log('Listening on port ' + config.port);
   }
 });
