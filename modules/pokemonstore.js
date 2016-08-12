@@ -2,6 +2,7 @@
  * Created by Timo on 10.08.2016.
  */
 
+var winston = require('winston');
 var pokemonConfig = require('./../pokemon.json');
 
 var appearedPkmn = [];
@@ -46,9 +47,10 @@ var pkmnStore = {
             pkmn.rarity = pokemonConfig[pkmn.pokemon_id].rarity;
 
             appearedPkmn[pkmn.encounter_id] = pkmn;
+            winston.debug('Added %s (%s)!', pokemonConfig[pkmn.pokemon_id].name, pkmnMsg.encounter_id);
             callback(pkmn);
         } else {
-            console.log('Pokemon already seen!');
+            winston.debug('%s (%s) already seen! Skipping...', pokemonConfig[pkmnMsg.pokemon_id].name, pkmnMsg.encounter_id);
         }
     }
 };

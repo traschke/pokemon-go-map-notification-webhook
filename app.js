@@ -1,15 +1,18 @@
 var express = require('express');
 var path = require('path');
-var logger = require('morgan');
+var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var debug = require('debug')('pgo-webhook:server');
+var winston = require('winston');
 var config = require('./config.json');
 
 var pokemon = require('./routes/pokemon');
 
 var app = express();
 
-app.use(logger('dev'));
+if (config.loglevel != undefined) {
+    winston.level = config.loglevel;
+}
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use('/pokemon', pokemon);
@@ -17,9 +20,9 @@ app.use('/pokemon', pokemon);
 // Start server ****************************
 app.listen(config.port, function(err) {
   if (err !== undefined) {
-    console.log('Error on startup, ',err);
+    winston.error('Error on startup', err);
   }
   else {
-    console.log('Listening on port ' + config.port);
+    winston.info('Listening on port %d', config.port)
   }
 });
