@@ -8,5 +8,9 @@
     "devices": [
       ""
     ]
-  }
+  },
+  "pushjet": {
+      "endpoint": "https://api.pushjet.io/",
+      "secret": ""
+    }
 }

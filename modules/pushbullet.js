@@ -11,9 +11,11 @@ var push = {
     push: function (title, message, link) {
         pusher.note(config.pushbullet.devices, title, message + '\n' + link, function(err, res) {
             if (err) {
-                console.log(err);
+                console.log('Error:', err);
+            } else {
+                console.log('Status:', res);
             }
-            console.log(res);
+
         });
     }
 };

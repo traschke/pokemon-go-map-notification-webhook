@@ -10,6 +10,10 @@ if (config.pushbullet != undefined) {
     services.push(require('./pushbullet'));
 }
 
+if (config.pushjet != undefined) {
+    services.push(require('./pushjet'));
+}
+
 var serviceManager = {
     push: function (title, message, link) {
         for (var i = 0; i < services.length; i++) {

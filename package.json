@@ -10,6 +10,7 @@
     "debug": "^2.2.0",
     "express": "~4.13.4",
     "morgan": "~1.7.0",
-    "pushbullet": "^1.4.3"
+    "pushbullet": "^1.4.3",
+    "pushjet": "0.0.3"
   }
 }
