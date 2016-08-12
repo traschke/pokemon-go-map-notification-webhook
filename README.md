@@ -1,5 +1,5 @@
 # Pokemon Go Map Pushbullet Webhook
-### Version 0.1
+### Version 0.2
 
 Webhook for the [PokemonGo Map] (https://github.com/PokemonGoMap/PokemonGo-Map).
 

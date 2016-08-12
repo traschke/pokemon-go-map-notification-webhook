@@ -1,15 +1,16 @@
 {
   "name": "pokemon-go-map-pushbullet-webhook",
-  "version": "0.0.1",
+  "version": "0.2",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
-    "debug": "^2.2.0",
     "express": "~4.13.4",
     "morgan": "~1.7.0",
-    "pushbullet": "^1.4.3"
+    "pushbullet": "^1.4.3",
+    "pushjet": "0.0.3",
+    "winston": "^2.2.0"
   }
 }
