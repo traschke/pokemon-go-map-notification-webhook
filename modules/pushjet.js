@@ -11,7 +11,7 @@ var pusher = new Pushjet(config.pushjet.endpoint);
 
 var push = {
     push: function (title, message, link) {
-        pusher.sendMessage(config.pushjet.secret, message, title, 1, link)
+        pusher.sendMessage(config.pushjet.secret, message, title, config.pushjet.level, link)
             .then(function (status) {
                 winston.debug('Pushjet: Push sent!');
             })

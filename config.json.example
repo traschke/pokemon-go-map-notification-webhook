@@ -12,6 +12,7 @@
   },
   "pushjet": {
       "endpoint": "https://api.pushjet.io/",
-      "secret": ""
+      "secret": "",
+      "level": 5
     }
 }
