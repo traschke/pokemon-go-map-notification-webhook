@@ -2,8 +2,9 @@
  * Created by Timo on 10.08.2016.
  */
 
-var winston = require('winston');
+var logger = require('winston');
 var pokemonConfig = require('./../pokemon.json');
+var config = require('./../config.json');
 
 var appearedPkmn = [];
 
@@ -36,21 +37,30 @@ var addLeadingZero = function(val) {
 
 var pkmnStore = {
     add: function(pkmnMsg, callback) {
-        if (typeof appearedPkmn[pkmnMsg.encounter_id] === 'undefined') {
-            var pkmn = JSON.parse(JSON.stringify(pkmnMsg));
-            var disappear_time = new Date(pkmn.disappear_time * 1000);
+        var pkmn = JSON.parse(JSON.stringify(pkmnMsg));
+        var disappear_time = new Date(pkmn.disappear_time * 1000);
 
-            pkmn.name = pokemonConfig[pkmn.pokemon_id].name;
-            pkmn.time_until_hidden_formatted = msToTime(pkmn.time_until_hidden_ms);
-            pkmn.disappear_time_formatted = formatDate(disappear_time);
-            pkmn.direction_href = 'https://www.google.com/maps/dir/Current+Location/' + pkmn.latitude + ',' + pkmn.longitude;
-            pkmn.rarity = pokemonConfig[pkmn.pokemon_id].rarity;
+        // Fill pokemon object with data
+        pkmn.name = pokemonConfig[pkmn.pokemon_id].name;
+        pkmn.time_until_hidden_formatted = msToTime(pkmn.time_until_hidden_ms);
+        pkmn.disappear_time_formatted = formatDate(disappear_time);
+        pkmn.direction_href = 'https://www.google.com/maps/dir/Current+Location/' + pkmn.latitude + ',' + pkmn.longitude;
+        pkmn.rarity = pokemonConfig[pkmn.pokemon_id].rarity;
 
-            appearedPkmn[pkmn.encounter_id] = pkmn;
-            winston.debug('Added %s (%s)!', pokemonConfig[pkmn.pokemon_id].name, pkmnMsg.encounter_id);
-            callback(pkmn);
+        if (config.rarity_filter == undefined || config.rarity_filter.indexOf(pkmn.rarity.toLowerCase()) > -1) {
+            if (config.pokemon_filter == undefined || config.pokemon_filter.indexOf(pkmn.pokemon_id) > -1) {
+                if (typeof appearedPkmn[pkmnMsg.encounter_id] === 'undefined') {
+                    appearedPkmn[pkmn.encounter_id] = pkmn;
+                    logger.debug('Pokémon Store: Added %s (%s)!', pokemonConfig[pkmn.pokemon_id].name, pkmnMsg.encounter_id);
+                    callback(pkmn);
+                } else {
+                    logger.debug('Pokémon Store: %s (%s) already seen! Skipping...', pokemonConfig[pkmnMsg.pokemon_id].name, pkmnMsg.encounter_id);
+                }
+            } else {
+                logger.debug('Pokémon filter: Skipping %s.', pkmn.name);
+            }
         } else {
-            winston.debug('%s (%s) already seen! Skipping...', pokemonConfig[pkmnMsg.pokemon_id].name, pkmnMsg.encounter_id);
+            logger.debug('Rarity filer: Skipping %s %s.', pkmn.rarity, pkmn.name);
         }
     }
 };
