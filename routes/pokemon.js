@@ -28,7 +28,7 @@ var callback = function(pkmn) {
     var localizedPkmn = localizer.getLocalizedPokmemon(pkmn);
     var msg = localizer.getLocalizedString('pokemon_message');
     msg = util.format(msg, localizedPkmn.name, localizedPkmn.rarity, localizedPkmn.time_until_hidden_formatted,
-        localizedPkmn.disappear_time_formatted);
+        localizedPkmn.disappear_time_formatted, localizedPkmn.formattedAddress);
     logger.debug('Parsed message: %s', msg);
     serviceManager.push('Pokémon GO', msg, localizedPkmn.direction_href);
 };
