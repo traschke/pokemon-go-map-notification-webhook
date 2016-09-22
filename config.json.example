@@ -4,6 +4,7 @@
   "loglevel": "debug",
   "rarity_filter": ["common", "uncommon", "rare", "very rare", "ultra rare"],
   "pokemon_filter": [16, 21],
+  "gmapskey": "",
   "pushbullet": {
     "apikey": "",
     "devices": [
@@ -12,6 +13,7 @@
   },
   "pushjet": {
       "endpoint": "https://api.pushjet.io/",
-      "secret": ""
+      "secret": "",
+      "level": 5
     }
 }
